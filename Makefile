@@ -70,6 +70,9 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@$(MAKE) -C $(LIBFT_PATH) fclean
+ifeq ($(UNAME), Darwin)
+	@$(MAKE) -C $(MLX_PATH) fclean
+endif
 	@echo "\033[35m[Fully cleaned up]\033[0m"
 
 # Recompile everything

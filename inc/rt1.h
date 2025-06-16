@@ -46,6 +46,14 @@ void	img_pixel_put(t_rt1 *rt1, int x, int y, int color);
 	// color
 	int	ft_color(int r, int g, int b);
 
+// vector
+t_vector	vec3_init(float x, float y, float z);
+void		print_vec3(t_vector vec3);
+void		_vec3(t_vector *vec3);
+void		vec3_add(t_vector *dst, t_vector *src);
+void		vec3_scale(t_vector *vec3, float value);
+void		vec3_scale_down(t_vector *vec3, float value);
+
 // free
 void	free_all(t_rt1 *rt1);
 
