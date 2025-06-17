@@ -4,6 +4,7 @@
 #include "libft.h"
 #include "gnl.h"
 #include <mlx.h>
+#include <math.h>
 
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
@@ -41,7 +42,7 @@ int		close_win(t_rt1 *rt1);
 
 // data
 void	put_image_back(t_rt1 *rt1);
-void	create_image(t_rt1 *rt1, int (*func)(t_rt1 *));
+void	create_image(t_rt1 *rt1, int (*func)());
 void	img_pixel_put(t_rt1 *rt1, int x, int y, int color);
 	// color
 	int	ft_color(int r, int g, int b);
@@ -50,9 +51,12 @@ void	img_pixel_put(t_rt1 *rt1, int x, int y, int color);
 t_vector	vec3_init(float x, float y, float z);
 void		print_vec3(t_vector vec3);
 void		_vec3(t_vector *vec3);
-void		vec3_add(t_vector *dst, t_vector *src);
 void		vec3_scale(t_vector *vec3, float value);
 void		vec3_scale_down(t_vector *vec3, float value);
+float		vec3_len_square(t_vector *a, t_vector *b);
+float		vec3_length(t_vector *a, t_vector *b);
+t_vector	vec3_add(t_vector *dst, t_vector *src);
+
 
 // free
 void	free_all(t_rt1 *rt1);

@@ -5,7 +5,7 @@ void	put_image_back(t_rt1 *rt1)
 	mlx_put_image_to_window(rt1->mlx, rt1->mlx_win, rt1->img.mlx_img, 0, 0);
 }
 
-void	create_image(t_rt1 *rt1, int (*func)(t_rt1 *))
+void	create_image(t_rt1 *rt1, int (*func)())
 {
 	rt1->img.width = WIN_WIDTH;
 	rt1->img.height = WIN_HEIGHT;
