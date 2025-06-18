@@ -21,44 +21,20 @@ int		paint(t_rt1 *rt1)
 	return (0);
 }
 
-void	vector_test()
-{
-	t_vector	a;
-	t_vector	b;
-
-	a = vec3_init(1, 2, 3);
-	b = vec3_init(4, 5, 6);
-
-	_vec3(&a);
-	print_vec3(a);
-	vec3_scale(&a, 3);
-	print_vec3(a);
-	printf("%f, %f\n", vec3_len_square(&a), vec3_length(&a));
-	print_vec3(vec3_add(&b, &a));
-	print_vec3(b);
-	print_vec3(vec3_sub(&b, &a));
-	print_vec3(b);
-	printf("%f\n", vec3_dot(&a, &b));
-	t_vector	cross = vec3_cross(&a, &b);
-	t_vector	unit = vec3_unit(&a);
-
-	print_vec3(cross);
-	print_vec3(unit);
-}
-
 int	main()
 {
 	t_rt1		rt1;
 	t_image 	img;
-	t_vector	vec3;
 	t_vector	color;
+	t_ray		ray;
 
 	ft_bzero(&rt1, sizeof(rt1));
-	rt1.mlx = mlx_init();
-	rt1.mlx_win = mlx_new_window(rt1.mlx, WIN_WIDTH, WIN_HEIGHT, "RayTracingInOneWeekend");
-	create_image(&rt1, paint);
-	img = rt1.img;
-	mlx_hook(rt1.mlx_win, 17, 0, close_win, &rt1);
-	mlx_key_hook(rt1.mlx_win, key_handle, &rt1);
-	mlx_loop(rt1.mlx);
+	ray = ray_init(vec3_init(1, 2, 3), vec3_init(4, 5, 6));
+	// rt1.mlx = mlx_init();
+	// rt1.mlx_win = mlx_new_window(rt1.mlx, WIN_WIDTH, WIN_HEIGHT, "RayTracingInOneWeekend");
+	// create_image(&rt1, paint);
+	// img = rt1.img;
+	// mlx_hook(rt1.mlx_win, 17, 0, close_win, &rt1);
+	// mlx_key_hook(rt1.mlx_win, key_handle, &rt1);
+	// mlx_loop(rt1.mlx);
 }

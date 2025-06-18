@@ -2,12 +2,6 @@
 
 int	ft_color(t_vector color)
 {
-	int	r;
-	int	g;
-	int	b;
-
-	r = color.x * 255.999;
-	g = color.y * 255.999;
-	b = color.z * 255.999;
-	return ((r  << 16 ) | (g << 8) | b);
+	color = vec3_scale(color, 255.9);
+	return (((int) color.x  << 16 ) | ((int) color.y << 8) | (int) color.z);
 }

@@ -9,6 +9,9 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
+#define vec_init(x) _Generic((x), float:)
+
+
 typedef	struct s_image
 {
 	void	*mlx_img;
@@ -36,6 +39,12 @@ typedef struct	s_rt1
 	t_vector	vec3;
 }	t_rt1;
 
+typedef	struct s_ray
+{
+	t_vector	origin;
+	t_vector	dir;
+}	t_ray;
+
 // control
 int		key_handle(int keycode, void *param);
 int		close_win(t_rt1 *rt1);
@@ -48,19 +57,23 @@ void	img_pixel_put(t_rt1 *rt1, int x, int y, int color);
 	int	ft_color(t_vector color);
 
 // vector
-t_vector	vec3_init(float x, float y, float z);
 void		print_vec3(t_vector vec3);
-void		_vec3(t_vector *vec3);
-t_vector	vec3_scale(t_vector *vec3, float value);
-void		vec3_scale_down(t_vector *vec3, float value);
-float		vec3_len_square(t_vector *a);
-float		vec3_length(t_vector *a);
-t_vector	vec3_add(t_vector *dst, t_vector *src);
-t_vector	vec3_sub(t_vector *dst, t_vector *src);
-t_vector	vec3_multi(t_vector *dst, t_vector *src);
-float		vec3_dot(t_vector *a, t_vector *b);
-t_vector	vec3_cross(t_vector *a, t_vector *b);
-t_vector	vec3_unit(t_vector *vec3);
+t_vector	vec3_init(float x, float y, float z);
+t_vector	_vec3(t_vector vec3);
+t_vector	vec3_scale(t_vector vec3, float value);
+float		vec3_len_sq(t_vector vec3);
+float		vec3_length(t_vector vec3);
+t_vector	vec3_add(t_vector a, t_vector b);
+t_vector	vec3_sub(t_vector dst, t_vector src);
+t_vector	vec3_multi(t_vector a, t_vector b);
+float		vec3_dot(t_vector a, t_vector b);
+t_vector	vec3_cross(t_vector a, t_vector b);
+t_vector	vec3_unit(t_vector vec3);
+
+// ray
+void	print_ray(t_ray ray);
+t_ray		ray_init(t_vector origin, t_vector dir);
+t_vector	ray_pos(t_ray ray, float t);
 
 // free
 void	free_all(t_rt1 *rt1);
