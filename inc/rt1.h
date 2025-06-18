@@ -41,7 +41,7 @@ int		close_win(t_rt1 *rt1);
 
 // data
 void	put_image_back(t_rt1 *rt1);
-void	create_image(t_rt1 *rt1, int (*func)(t_rt1 *));
+void	create_image(t_rt1 *rt1, int (*func)());
 void	img_pixel_put(t_rt1 *rt1, int x, int y, int color);
 	// color
 	int	ft_color(int r, int g, int b);
