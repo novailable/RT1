@@ -6,8 +6,9 @@
 #include <mlx.h>
 #include <math.h>
 
-#define WIN_WIDTH 800
-#define WIN_HEIGHT 600
+#define WIN_RATIO    (16.0f / 9.0f)
+#define WIN_WIDTH    800
+#define WIN_HEIGHT   (int)(WIN_WIDTH / WIN_RATIO)
 
 #define vec_init(x) _Generic((x), float:)
 

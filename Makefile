@@ -38,7 +38,7 @@ OBJS := $(SRCS:.c=.o)
 all: $(NAME)
 	 @echo "\033[32m[$(NAME) is ready for use]\033[0m"
 
-$(NAME): $(MLX_LIB) $(OBJS)  $(LIBFT)
+$(NAME): $(MLX_LIB) $(OBJS) $(LIBFT)
 	@echo "$(NAME) compiling..."
 	@$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -L$(LIBFT_PATH) $(LIBFT) $(MLX_LIB) -lm -o $(NAME)
 
@@ -75,7 +75,12 @@ ifeq ($(UNAME), Darwin)
 endif
 	@echo "\033[35m[Fully cleaned up]\033[0m"
 
+header: clean ${OBJS}
+	@echo "$(NAME) compiling..."
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -L$(LIBFT_PATH) $(LIBFT) $(MLX_LIB) -lm -o $(NAME)
+	@echo "\033[32m[$(NAME) is ready for use]\033[0m"
+
 # Recompile everything
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re header
