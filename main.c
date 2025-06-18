@@ -30,8 +30,8 @@ void	vector_test()
 
 	a = vec3_init(1, 2, 3);
 	b = vec3_init(4, 5, 6);
-	vec3_scale(&a, 3.12312);
-	vec3_scale_down(&a, 3.12312);
+
+	printf("%f, %f\n", vec3_len_square(&a, &b), vec3_length(&a, &b));
 	print_vec3(a);
 }
 

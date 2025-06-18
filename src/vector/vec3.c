@@ -25,15 +25,6 @@ void	_vec3(t_vector *vec3)
 	}
 }
 
-void	vec3_add(t_vector *dst, t_vector *src)
-{
-	if (!dst || !src)
-		return ;
-	dst->x += src->x;
-	dst->y += src->y;
-	dst->z += src->z;
-}
-
 void	vec3_scale(t_vector *vec3, float value)
 {
 	if (!vec3)
@@ -49,5 +40,36 @@ void	vec3_scale_down(t_vector *vec3, float value)
 		return; 
 	vec3_scale(vec3, 1/value);
 }
+
+float	vec3_len_square(t_vector *a, t_vector *b)
+{
+	return ((a->x * b->x) + (a->y * b->y) + (a->z * b->z));
+}
+
+float	vec3_length(t_vector *a, t_vector *b)
+{
+	return (sqrt(vec3_len_square(a, b)));
+}
+
+t_vector	vec3_add(t_vector *dst, t_vector *src)
+{
+	if (!dst || !src)
+		return (*dst);
+	dst->x += src->x;
+	dst->y += src->y;
+	dst->z += src->z;
+	return (*dst);
+}
+
+t_vector	vec3_sub(t_vector *dst, t_vector *src)
+{
+	if (!dst || !src)
+		return (*dst);
+	dst->x -= src->x;
+	dst->y -= src->y;
+	dst->z -= src->z;
+	return (*dst);
+}
+
 
 
