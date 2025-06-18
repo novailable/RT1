@@ -45,18 +45,22 @@ void	put_image_back(t_rt1 *rt1);
 void	create_image(t_rt1 *rt1, int (*func)());
 void	img_pixel_put(t_rt1 *rt1, int x, int y, int color);
 	// color
-	int	ft_color(int r, int g, int b);
+	int	ft_color(t_vector color);
 
 // vector
 t_vector	vec3_init(float x, float y, float z);
 void		print_vec3(t_vector vec3);
 void		_vec3(t_vector *vec3);
-void		vec3_scale(t_vector *vec3, float value);
+t_vector	vec3_scale(t_vector *vec3, float value);
 void		vec3_scale_down(t_vector *vec3, float value);
-float		vec3_len_square(t_vector *a, t_vector *b);
-float		vec3_length(t_vector *a, t_vector *b);
+float		vec3_len_square(t_vector *a);
+float		vec3_length(t_vector *a);
 t_vector	vec3_add(t_vector *dst, t_vector *src);
-
+t_vector	vec3_sub(t_vector *dst, t_vector *src);
+t_vector	vec3_multi(t_vector *dst, t_vector *src);
+float		vec3_dot(t_vector *a, t_vector *b);
+t_vector	vec3_cross(t_vector *a, t_vector *b);
+t_vector	vec3_unit(t_vector *vec3);
 
 // free
 void	free_all(t_rt1 *rt1);
