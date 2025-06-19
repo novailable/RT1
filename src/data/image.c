@@ -8,7 +8,10 @@ void	put_image_back(t_rt1 *rt1)
 void	create_image(t_rt1 *rt1, int (*func)())
 {
 	rt1->img.width = WIN_WIDTH;
-	rt1->img.height = WIN_HEIGHT;
+	if (WIN_HEIGHT < 1)
+		rt1->img.height = 1;
+	else
+		rt1->img.height = WIN_HEIGHT;
 	rt1->img.mlx_img = mlx_new_image(rt1->mlx, rt1->img.width, rt1->img.height);
 	rt1->img.mlx_img_data = mlx_get_data_addr(rt1->img.mlx_img, &rt1->img.bpp, &rt1->img.size_line, &rt1->img.endian);
 	rt1->img.bypp = rt1->img.bpp / 8;

@@ -10,7 +10,14 @@
 #define WIN_WIDTH    800
 #define WIN_HEIGHT   (int)(WIN_WIDTH / WIN_RATIO)
 
-#define vec_init(x) _Generic((x), float:)
+// #define vec_init(x) _Generic((x), float:)
+
+typedef	struct	s_vector
+{
+	float	x;
+	float	y;
+	float	z;
+}	t_vector;
 
 
 typedef	struct s_image
@@ -25,12 +32,14 @@ typedef	struct s_image
 	int		endian;
 }	t_image;
 
-typedef	struct	s_vector
+typedef	struct s_camera
 {
-	float	x;
-	float	y;
-	float	z;
-}	t_vector;
+	float		vp_width;	// view_port
+	float		vp_height;
+	float		fl;			// focal length
+	t_vector	center;
+	
+}	t_camera;
 
 typedef struct	s_rt1
 {
