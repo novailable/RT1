@@ -105,6 +105,9 @@ int		close_win(t_rt1 *rt1);
 	// color
 	int	ft_color(t_vector color);
 
+	// ray
+	t_vector	ray_color(t_ray ray);
+
 // vector
 void		print_vec3(t_vector vec3);
 t_vector	vec3_init(float x, float y, float z);
@@ -127,6 +130,10 @@ t_camera	camera_init(t_rt1 rt1, t_vector center, float vp_height, float fl);
 void	print_ray(t_ray ray);
 t_ray		ray_init(t_vector origin, t_vector dir);
 t_vector	ray_pos(t_ray ray, float t);
+
+// components
+int	hit_sphere(t_vector	sp_center, float radius, t_ray r);
+
 
 // free
 void	free_all(t_rt1 *rt1);

@@ -1,19 +1,5 @@
 #include "rt1.h"
 
-t_vector	ray_color(t_ray ray)
-{
-	t_vector	unit_direction;
-	t_vector	temp;
-	t_vector	color;
-	float		positive_y;
-
-	unit_direction = vec3_unit(ray.dir);
-	positive_y = 0.5 * (unit_direction.y + 1.0);
-	temp = vec3_scale(vec3_init(1.0, 1.0, 1.0), 1.0 - positive_y);
-	color = vec3_add(temp, vec3_scale(vec3_init(0.5, 0.7, 1.0), positive_y));
-	return (color);
-}
-
 t_vector	get_color(t_rt1 *rt1, t_vector pixel_x, t_vector pixel_y)
 {
 	t_vector	pixel_center;
@@ -60,7 +46,6 @@ int	main()
 	ray = ray_init(vec3_init(1, 2, 3), vec3_init(4, 5, 6));
 	rt1.mlx = mlx_init();
 	rt1.mlx_win = mlx_new_window(rt1.mlx, WIN_WIDTH, WIN_HEIGHT, "RayTracingInOneWeekend");
-	
 	create_image(&rt1);
 	rt1.camera = camera_init(rt1, vec3_init(0, 0, 0), 2.0, 1.0);
 	print_camera(rt1.camera);
