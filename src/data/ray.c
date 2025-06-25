@@ -12,6 +12,7 @@ t_ray	ray_init(t_vector origin, t_vector dir)
 {
 	t_ray	ray;
 
+	ft_bzero(&ray, sizeof(ray));
 	ray.origin = origin;
 	ray.dir = dir;
 	return (ray);
@@ -21,19 +22,25 @@ t_vector	ray_pos(t_ray ray, float t)
 {
 	return (vec3_add(ray.origin, vec3_scale(ray.dir, t)));
 }
-
-t_vector	ray_color(t_ray ray)
+t_vector ray_color(t_ray ray)
 {
-	t_vector	unit_direction;
-	t_vector	temp;
+	float		t;
+	t_vector	N;
 	t_vector	color;
+	t_vector	unit_direction;
 	float		positive_y;
+	t_vector	temp;
 
-	if (hit_sphere(vec3_init(0, 0, -1), 0.5, ray))
-		return (vec3_init(1, 0, 0));
+	t = hit_sphere(vec3_init(0, 0, -1), 0.5, ray);
+	if (t > 0.0)
+	{
+		N = vec3_unit(vec3_sub(ray_pos(ray, t), vec3_init(0, 0, -1)));
+		color = vec3_scale(vec3_init(N.x + 1, N.y + 1, N.z + 1), 0.5);
+		return (color); // <-- RETURN EARLY
+	}
 	unit_direction = vec3_unit(ray.dir);
 	positive_y = 0.5 * (unit_direction.y + 1.0);
-	temp = vec3_scale(vec3_init(1.0, 1.0, 1.0), 1.0 - positive_y);
+	temp = vec3_scale(vec3_init(1.0, 1.0, 1.0), (1 - positive_y));
 	color = vec3_add(temp, vec3_scale(vec3_init(0.5, 0.7, 1.0), positive_y));
 	return (color);
 }
