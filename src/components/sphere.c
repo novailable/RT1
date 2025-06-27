@@ -10,7 +10,7 @@ t_sphere	init_sphere(t_vector center, float radius)
 	return	(sphere);
 }
 
-int	hit_sphere(t_sphere sphere, t_ray ray, t_hits *hits)
+int	hit_sphere(t_sphere sphere, t_ray ray, t_hit *hit)
 {
 	t_vector	oc;
 	float		ahc[3];
@@ -32,9 +32,10 @@ int	hit_sphere(t_sphere sphere, t_ray ray, t_hits *hits)
 		root = (ahc[1] + sq_delta) / ahc[0];
 		if (root <= ray.t_min || ray.t_max <= root)
 			return (0);
-		hits->t = root;
-		hits->P = ray_pos(ray, hits->t);
-		hits->normal = vec3_scale(vec3_sub(hits->P, sphere.center), 1 / sphere.radius);
+		hit->t = root;
+		hit->P = ray_pos(ray, hit->t);
+		hit->normal = vec3_scale(vec3_sub(hit->P, sphere.center), 1 / sphere.radius);
+		set_face_normal(ray, hit);
         return (1);
     }
 }
