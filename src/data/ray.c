@@ -31,6 +31,7 @@ t_vector ray_color(t_ray ray)
 	float		positive_y;
 	t_vector	temp;
 
+	// print_ray(ray);
 	t = hit_sphere(vec3_init(0, 0, -1), 0.5, ray);
 	if (t > 0.0)
 	{

@@ -54,13 +54,30 @@ typedef struct	s_rt1
 	t_image		img;
 	t_vector	vec3;
 	t_camera	camera;
+	t_sphere	sphere;
 }	t_rt1;
 
 typedef	struct s_ray
 {
 	t_vector	origin;
 	t_vector	dir;
+	float		t_min;
+	float		t_max;
 }	t_ray;
+
+typedef struct s_hits
+{
+	t_vector	P;
+	t_vector	normal;
+	float		t;
+}	t_hits;
+
+typedef struct	s_sphere
+{
+	t_vector	center;
+	float		radius;
+	int			(*hit)();
+}	t_sphere;
 
 // control
 int		key_handle(int keycode, void *param);
@@ -103,7 +120,10 @@ t_ray		ray_init(t_vector origin, t_vector dir);
 t_vector	ray_pos(t_ray ray, float t);
 
 // components
-float	hit_sphere(t_vector	sp_center, float radius, t_ray r);
+
+	// sphere
+	t_sphere	init_sphere(t_vector center, float radius);
+	int	hit_sphere(t_sphere	sphere, t_ray r, t_hits *hits);
 
 
 // free
