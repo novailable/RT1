@@ -47,6 +47,12 @@ typedef	struct s_camera
 	t_vector	pixel_00;
 }	t_camera;
 
+typedef struct	s_sphere
+{
+	t_vector	center;
+	float		radius;
+}	t_sphere;
+
 typedef struct	s_rt1
 {
 	void		*mlx;
@@ -54,7 +60,6 @@ typedef struct	s_rt1
 	t_image		img;
 	t_vector	vec3;
 	t_camera	camera;
-	t_sphere	sphere;
 }	t_rt1;
 
 typedef	struct s_ray
@@ -72,12 +77,20 @@ typedef struct s_hits
 	float		t;
 }	t_hits;
 
-typedef struct	s_sphere
+typedef enum e_obj_type 
 {
-	t_vector	center;
-	float		radius;
-	int			(*hit)();
-}	t_sphere;
+	OBJ_SPHERE,
+	OBJ_PLANE,
+	OBJ_CYLINDER,
+}	t_obj_type;
+
+typedef struct	s_objs
+{
+	void	*data;
+	int		(*hit)();
+	void	(*destory)(void *);
+	void	(*print)(void *);
+}	t_objs;
 
 // control
 int		key_handle(int keycode, void *param);
@@ -120,8 +133,12 @@ t_ray		ray_init(t_vector origin, t_vector dir);
 t_vector	ray_pos(t_ray ray, float t);
 
 // components
+	// world
+	void	print_world(void *data);
+	t_list	*add_w_item(void *data, int (*hit)(), void (*destory)(void *), void (*print)(void *));
 
 	// sphere
+	void	print_sphere(void *data);
 	t_sphere	init_sphere(t_vector center, float radius);
 	int	hit_sphere(t_sphere	sphere, t_ray r, t_hits *hits);
 

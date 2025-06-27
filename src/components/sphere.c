@@ -1,12 +1,24 @@
 #include "rt1.h"
 
-t_sphere	init_sphere(t_vector center, float radius)
+void	print_sphere(void *data)
 {
-	t_sphere	sphere;
+	t_sphere	*sphere;
 
-	ft_bzero(&sphere, sizeof(sphere));
-	sphere.center = center;
-	sphere.radius = radius;
+	sphere = (t_sphere *)data;
+	printf("sphere - center: "); 
+	print_vec3(sphere->center);
+	printf(", radius - %f\n", sphere->radius);
+}
+
+t_sphere	*init_sphere(t_vector center, float radius)
+{
+	t_sphere	*sphere;
+
+	sphere = malloc(sizeof(t_sphere));
+	ft_bzero(sphere, sizeof(sphere));
+	sphere->center = center;
+	sphere->radius = radius;
+	sphere->hit = hit_sphere;
 	return	(sphere);
 }
 

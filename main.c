@@ -38,22 +38,22 @@ int		paint(t_rt1 *rt1)
 int	main()
 {
 	t_rt1		rt1;
-	t_image 	img;
-	t_vector	color;
 	t_ray		ray;
-	t_sphere	sphere;
+	t_list		*world;
 
-	ft_bzero(&rt1, sizeof(rt1));
-	ray = ray_init(vec3_init(1, 2, 3), vec3_init(4, 5, 6));
-	rt1.mlx = mlx_init();
-	rt1.mlx_win = mlx_new_window(rt1.mlx, WIN_WIDTH, WIN_HEIGHT, "RayTracingInOneWeekend");
-	create_image(&rt1);
-	rt1.camera = camera_init(rt1, vec3_init(0, 0, 0), 2.0, 1.0);
-	// rt1.sphere = init_sphere(vec3_init())
-	print_camera(rt1.camera);
-	paint(&rt1);
-	put_image_back(&rt1);
-	mlx_hook(rt1.mlx_win, 17, 0, close_win, &rt1);
-	mlx_key_hook(rt1.mlx_win, key_handle, &rt1);
-	mlx_loop(rt1.mlx);
+
+	add_w_item(&world, (void *)&(init_sphere(vec3_init(1, 2, 3), 5)), OBJ_SPHERE);
+	// ft_bzero(&rt1, sizeof(rt1));
+	// ray = ray_init(vec3_init(1, 2, 3), vec3_init(4, 5, 6));
+	// rt1.mlx = mlx_init();
+	// rt1.mlx_win = mlx_new_window(rt1.mlx, WIN_WIDTH, WIN_HEIGHT, "RayTracingInOneWeekend");
+	// create_image(&rt1);
+	// rt1.camera = camera_init(rt1, vec3_init(0, 0, 0), 2.0, 1.0);
+	// // rt1.sphere = init_sphere(vec3_init())
+	// print_camera(rt1.camera);
+	// paint(&rt1);
+	// put_image_back(&rt1);
+	// mlx_hook(rt1.mlx_win, 17, 0, close_win, &rt1);
+	// mlx_key_hook(rt1.mlx_win, key_handle, &rt1);
+	// mlx_loop(rt1.mlx);
 }
