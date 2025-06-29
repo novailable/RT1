@@ -5,11 +5,12 @@
 #include "gnl.h"
 #include <mlx.h>
 #include <math.h>
+#include <float.h>
 
 #define WIN_RATIO    (16.0f / 9.0f)
 #define WIN_WIDTH    800
 #define WIN_HEIGHT   (int)(WIN_WIDTH / WIN_RATIO)
-
+#define	LIGHT_SOURCE	((t_vector){1, 1, 1})
 // #define vec_init(x) _Generic((x), float:)
 
 typedef	struct	s_vector
@@ -57,18 +58,10 @@ typedef struct	s_rt1
 {
 	void		*mlx;
 	void		*mlx_win;
+	t_list		*world;
 	t_image		img;
-	t_vector	vec3;
 	t_camera	camera;
 }	t_rt1;
-
-typedef	struct s_ray
-{
-	t_vector	origin;
-	t_vector	dir;
-	float		t_min;
-	float		t_max;
-}	t_ray;
 
 typedef struct s_hit
 {
@@ -76,7 +69,17 @@ typedef struct s_hit
 	t_vector	normal;
 	float		t;
 	int			front_face;
-}	t_hits;
+}	t_hit;
+
+typedef	struct s_ray
+{
+	t_vector	origin;
+	t_vector	dir;
+	float		t_min;
+	float		t_max;
+	t_hit		hit;
+	int			hit_anything;
+}	t_ray;
 
 typedef enum e_obj_type 
 {
@@ -85,13 +88,14 @@ typedef enum e_obj_type
 	OBJ_CYLINDER,
 }	t_obj_type;
 
-typedef struct	s_objs
+typedef struct s_objs
 {
 	void	*data;
-	int		(*hit)();
+	int		(*hit)(void *, t_ray, t_hit *);
 	void	(*destory)(void *);
 	void	(*print)(void *);
 }	t_objs;
+
 
 // control
 int		key_handle(int keycode, void *param);
@@ -108,7 +112,7 @@ int		close_win(t_rt1 *rt1);
 	int	ft_color(t_vector color);
 
 	// ray
-	t_vector	ray_color(t_ray ray);
+	t_vector	ray_color(t_ray ray, t_list *world);
 
 // vector
 void		print_vec3(t_vector vec3);
@@ -138,15 +142,18 @@ void	set_face_normal(t_ray ray, t_hit *hit);
 // components
 	// world
 	void	print_world(void *data);
-	t_list	*add_w_item(void *data, int (*hit)(), void (*destory)(void *), void (*print)(void *));
+	void	add_w_item(t_list **world, void *data, int (*hit)(), void (*destory)(void *), void (*print)(void *));
+	void	world_hit(void *data, void *param);
 
 	// sphere
 	void	print_sphere(void *data);
-	t_sphere	init_sphere(t_vector center, float radius);
-	int	hit_sphere(t_sphere	sphere, t_ray ray, t_hit *hit);
+	t_sphere	*init_sphere(t_vector center, float radius);
+	int	hit_sphere(void	*sphere, t_ray ray, t_hit *hit);
 
 
 // free
 void	free_all(t_rt1 *rt1);
+void	free_sphere(void *sphere);
+
 
 #endif

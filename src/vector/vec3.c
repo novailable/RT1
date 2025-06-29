@@ -2,7 +2,7 @@
 
 void	print_vec3(t_vector vec3)
 {
-	printf("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
+	printf("x : %f, y : %f, z : %f", vec3.x, vec3.y, vec3.z);
 }
 
 t_vector	vec3_init(float x, float y, float z)

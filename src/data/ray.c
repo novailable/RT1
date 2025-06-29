@@ -15,6 +15,8 @@ t_ray	ray_init(t_vector origin, t_vector dir)
 	ft_bzero(&ray, sizeof(ray));
 	ray.origin = origin;
 	ray.dir = dir;
+	ray.t_max = FLT_MAX;
+	ray.t_min = 0;
 	return (ray);
 }
 
@@ -22,22 +24,19 @@ t_vector	ray_pos(t_ray ray, float t)
 {
 	return (vec3_add(ray.origin, vec3_scale(ray.dir, t)));
 }
-t_vector ray_color(t_ray ray)
+t_vector	ray_color(t_ray ray, t_list *world)
 {
-	float		t;
-	t_vector	N;
 	t_vector	color;
 	t_vector	unit_direction;
 	float		positive_y;
 	t_vector	temp;
+	t_hit		hit;
 
-	// print_ray(ray);
-	t = hit_sphere(init_sphere(vec3_init(0, 0, -1), 0.5), ray, );
-	if (t > 0.0)
+	ft_bzero(&color, sizeof(t_vector));
+	ft_lstiter_param(world, world_hit, &ray);
+	if (ray.hit_anything)
 	{
-		N = vec3_unit(vec3_sub(ray_pos(ray, t), vec3_init(0, 0, -1)));
-		color = vec3_scale(vec3_init(N.x + 1, N.y + 1, N.z + 1), 0.5);
-		return (color);
+		return (vec3_scale(vec3_add(ray.hit.normal, LIGHT_SOURCE), 0.5));
 	}
 	unit_direction = vec3_unit(ray.dir);
 	positive_y = 0.5 * (unit_direction.y + 1.0);
