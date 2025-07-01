@@ -41,10 +41,10 @@ int	hit_sphere(void *data, t_ray ray, t_hit *hit)
 		return (0);
 	sq_delta = sqrt(delta);
 	root = (ahc[1] - sq_delta) / ahc[0];
-	if (root <= ray.t_min || ray.t_max <= root)
+	if (!surrond(ray.range, root))
 	{
 		root = (ahc[1] + sq_delta) / ahc[0];
-		if (root <= ray.t_min || ray.t_max <= root)
+		if (!surrond(ray.range, root))
 			return (0);
 	}
 	hit->t = root;

@@ -1,33 +1,67 @@
 #include "rt1.h"
 
-t_vector	get_color(t_rt1 *rt1, t_vector pixel_x, t_vector pixel_y)
-{
-	t_vector	pixel_center;
-	t_camera	camera;
-	t_vector	ray_direction;
+// t_vector	sample_offset(int sample, float xy[2])
+// {
+// 	int	sx;
+// 	int	sy;
 
-	camera = rt1->camera;
-	pixel_center = vec3_add(vec3_add(camera.pixel_00, pixel_x), pixel_y);
-	ray_direction = vec3_sub(pixel_center, camera.center);
-	return (ray_color(ray_init(camera.center, ray_direction), rt1->world));
+// 	sx = sample % SAMPLE;
+// 	sy = sample / SAMPLE;
+
+// 	xy[0],
+// 	return (init_vec3())
+// }
+
+
+t_vector	get_color(t_camera camera, t_list *world, float x, float y)
+{
+	// t_vector	pixel_center;
+	t_vector	ray_direction;
+	t_vector	sample_center;
+	t_vector	pixel_color;
+	t_vector	offset_xy[2];
+
+	pixel_color = vec3_init(0, 0, 0);
+	for (int sample = 0; sample < SAMPLE; sample++)
+	{
+		int	sx = sample % SAMPLE;
+		int	sy = sample / SAMPLE;
+
+		x = x + (sx + 0.5f) / SAMPLE;
+		y = y + (sy + 0.5f) / SAMPLE;
+
+		offset_xy[0] = vec3_scale(camera.pixel_x, x);
+		offset_xy[1] = vec3_scale(camera.pixel_y, y);
+		sample_center = vec3_add(camera.pixel_00, vec3_add(offset_xy[0], offset_xy[1]));
+		ray_direction = vec3_sub(sample_center, camera.center);
+		pixel_color = vec3_add(pixel_color, ray_color(ray_init(camera.center, ray_direction), world));
+	}
+	// for (int sample = 0; sample < SAMPLE; sample++)
+	// {
+	// 	float u = ()
+	// }
+
+	
+	return (vec3_scale(pixel_color, (float)1 / SAMPLE));
 }
 
 int		paint(t_rt1 *rt1)
 {
 	t_image		img;
-	float		r;
-	float		g;
-	float		b;
 	t_vector	color;
 	float		pixel_center;
+	t_vector	sample_offset;
 
 	img = rt1->img;
 	for (int y = 0; y < img.height; y++)
 	{
 		for (int x = 0; x < img.width; x++)
 		{
-			color = get_color(rt1, vec3_scale(rt1->camera.pixel_x, x), 
-								vec3_scale(rt1->camera.pixel_y, y));
+
+			// sample_offset = vec3_scale(rt1->camera.pixel_x, x)
+			// color = get_color(rt1, vec3_scale(rt1->camera.pixel_x, x), 
+			// 					vec3_scale(rt1->camera.pixel_y, y));
+			color = get_color(rt1->camera, rt1->world, x, y);
 			img_pixel_put(rt1, x, y, ft_color(color));
 		}
 	}
@@ -41,7 +75,7 @@ int	main()
 	t_ray		ray;
 	
 	ft_bzero(&rt1, sizeof(rt1));
-	add_w_item(&rt1.world, (void *)init_sphere(vec3_init(0, 0, -1), 0.5), hit_sphere, free_sphere, print_sphere);
+	add_w_item(&rt1.world, (void *)init_sphere(vec3_init(0, 0, -1), 0.7), hit_sphere, free_sphere, print_sphere);
 	add_w_item(&rt1.world, (void *)init_sphere(vec3_init(0, -100.5, -1), 100), hit_sphere, free_sphere, print_sphere);
 
 	// print_world(rt1.world->data);

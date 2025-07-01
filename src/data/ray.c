@@ -17,6 +17,8 @@ t_ray	ray_init(t_vector origin, t_vector dir)
 	ray.dir = dir;
 	ray.t_max = FLT_MAX;
 	ray.t_min = 0;
+	ray.range.max = ray.t_max;
+	ray.range.min = ray.t_min;
 	return (ray);
 }
 
@@ -24,6 +26,7 @@ t_vector	ray_pos(t_ray ray, float t)
 {
 	return (vec3_add(ray.origin, vec3_scale(ray.dir, t)));
 }
+
 t_vector	ray_color(t_ray ray, t_list *world)
 {
 	t_vector	color;

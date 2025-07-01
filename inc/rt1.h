@@ -11,6 +11,7 @@
 #define WIN_WIDTH    800
 #define WIN_HEIGHT   (int)(WIN_WIDTH / WIN_RATIO)
 #define	LIGHT_SOURCE	((t_vector){1, 1, 1})
+#define	SAMPLE	8
 // #define vec_init(x) _Generic((x), float:)
 
 typedef	struct	s_vector
@@ -19,6 +20,12 @@ typedef	struct	s_vector
 	float	y;
 	float	z;
 }	t_vector;
+
+typedef struct	s_range
+{
+	float	min;
+	float	max;
+}	t_range;
 
 
 typedef	struct s_image
@@ -77,6 +84,7 @@ typedef	struct s_ray
 	t_vector	dir;
 	float		t_min;
 	float		t_max;
+	t_range		range;
 	t_hit		hit;
 	int			hit_anything;
 }	t_ray;
@@ -113,6 +121,14 @@ int		close_win(t_rt1 *rt1);
 
 	// ray
 	t_vector	ray_color(t_ray ray, t_list *world);
+
+	// range
+		t_range	init_range(float min, float max);
+		float	range_size(t_range range);
+		int		contain(t_range range, float x);
+		int		surrond(t_range range, float x);
+		float	clamp(t_range range, float x);
+
 
 // vector
 void		print_vec3(t_vector vec3);

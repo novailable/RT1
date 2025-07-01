@@ -36,7 +36,7 @@ void	world_hit(void *data, void *param)
 		if (!ray->hit_anything || temp_hit.t < ray->hit.t)
 		{
 			ray->hit = temp_hit;
-			ray->t_max = temp_hit.t;
+			ray->range.max = temp_hit.t;
 			ray->hit_anything = 1;
 		}
 	}
