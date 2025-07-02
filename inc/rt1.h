@@ -170,5 +170,8 @@ void	set_face_normal(t_ray ray, t_hit *hit);
 void	free_all(t_rt1 *rt1);
 void	free_sphere(void *sphere);
 
+// utility
+float	random_float();
+float	random_range(float, float);
 
 #endif

@@ -71,7 +71,6 @@ int	main()
 	ft_bzero(&rt1, sizeof(rt1));
 	add_w_item(&rt1.world, (void *)init_sphere(vec3_init(0, 0, -1), 0.5), hit_sphere, free_sphere, print_sphere);
 	add_w_item(&rt1.world, (void *)init_sphere(vec3_init(0, -100.5, -1), 100), hit_sphere, free_sphere, print_sphere);
-
 	// print_world(rt1.world->data);
 	ray = ray_init(vec3_init(1, 2, 3), vec3_init(4, 5, 6));
 	rt1.mlx = mlx_init();
