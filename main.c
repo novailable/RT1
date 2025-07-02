@@ -42,7 +42,7 @@ t_vector	get_color(t_camera camera, t_list *world, float x, float y)
 		sample_center = vec3_add(vec3_scale(camera.pixel_x, x + offset.x), vec3_scale(camera.pixel_y, y + offset.y));
 		sample_center = vec3_add(camera.pixel_00, sample_center);
 		ray_direction = vec3_sub(sample_center, camera.center);
-		pixel_color = vec3_add(pixel_color, ray_color(ray_init(camera.center, ray_direction), world));
+		pixel_color = vec3_add(pixel_color, ray_color(ray_init(camera.center, ray_direction, DEPTH), world));
 	}
 	return (vec3_scale(pixel_color, (float)1 / SAMPLE));
 }
@@ -76,7 +76,7 @@ int	main()
 	add_w_item(&rt1.world, (void *)init_sphere(vec3_init(0, 0, -1), 0.5), hit_sphere, free_sphere, print_sphere);
 	add_w_item(&rt1.world, (void *)init_sphere(vec3_init(0, -100.5, -1), 100), hit_sphere, free_sphere, print_sphere);
 	// print_world(rt1.world->data);
-	ray = ray_init(vec3_init(1, 2, 3), vec3_init(4, 5, 6));
+	ray = ray_init(vec3_init(1, 2, 3), vec3_init(4, 5, 6), 10);
 	rt1.mlx = mlx_init();
 	rt1.mlx_win = mlx_new_window(rt1.mlx, WIN_WIDTH, WIN_HEIGHT, "RayTracingInOneWeekend");
 	create_image(&rt1);

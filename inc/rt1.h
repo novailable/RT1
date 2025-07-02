@@ -12,6 +12,7 @@
 #define WIN_HEIGHT   (int)(WIN_WIDTH / WIN_RATIO)
 #define	LIGHT_SOURCE	((t_vector){1, 1, 1})
 #define	SAMPLE	10
+#define	DEPTH	50
 // #define vec_init(x) _Generic((x), float:)
 
 typedef	struct	s_vector
@@ -86,6 +87,7 @@ typedef	struct s_ray
 	t_range		range;
 	t_hit		hit;
 	int			hit_anything;
+	int			depth;
 }	t_ray;
 
 typedef enum e_obj_type 
@@ -142,6 +144,7 @@ t_vector	vec3_multi(t_vector a, t_vector b);
 float		vec3_dot(t_vector a, t_vector b);
 t_vector	vec3_cross(t_vector a, t_vector b);
 t_vector	vec3_unit(t_vector vec3);
+t_vector	vec3_func(t_vector vec3, float (*func)(float));
 
 //vector_random
 t_vector	vec3_random();
@@ -154,7 +157,7 @@ t_camera	camera_init(t_rt1 rt1, t_vector center, float vp_height, float fl);
 
 // ray
 void	print_ray(t_ray ray);
-t_ray		ray_init(t_vector origin, t_vector dir);
+t_ray		ray_init(t_vector origin, t_vector dir, int depth);
 t_vector	ray_pos(t_ray ray, float t);
 void	set_face_normal(t_ray ray, t_hit *hit);
 

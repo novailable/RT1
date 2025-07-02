@@ -71,3 +71,8 @@ t_vector	vec3_unit(t_vector vec3)
 		return vec3;
 	return (vec3_scale(vec3, 1 / len));
 }
+
+t_vector	vec3_func(t_vector vec3, float (*func)(float))
+{
+	return (vec3_init(func(vec3.x), func(vec3.y), func(vec3.z)));
+}
