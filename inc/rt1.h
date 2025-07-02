@@ -11,7 +11,7 @@
 #define WIN_WIDTH    800
 #define WIN_HEIGHT   (int)(WIN_WIDTH / WIN_RATIO)
 #define	LIGHT_SOURCE	((t_vector){1, 1, 1})
-#define	SAMPLE	1
+#define	SAMPLE	10
 // #define vec_init(x) _Generic((x), float:)
 
 typedef	struct	s_vector
@@ -143,6 +143,11 @@ float		vec3_dot(t_vector a, t_vector b);
 t_vector	vec3_cross(t_vector a, t_vector b);
 t_vector	vec3_unit(t_vector vec3);
 
+//vector_random
+t_vector	vec3_random();
+t_vector	vec3_random_range(float min, float max);
+t_vector	vec3_random_unit();
+t_vector	vec3_random_hemisphere(t_vector normal);
 // camera
 void	print_camera(t_camera camera);
 t_camera	camera_init(t_rt1 rt1, t_vector center, float vp_height, float fl);

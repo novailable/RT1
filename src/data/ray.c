@@ -33,13 +33,14 @@ t_vector	ray_color(t_ray ray, t_list *world)
 	t_vector	unit_direction;
 	float		positive_y;
 	t_vector	temp;
-	t_hit		hit;
 
-	ft_bzero(&color, sizeof(t_vector));
+	// ft_bzero(&color, sizeof(t_vector));
 	ft_lstiter_param(world, world_hit, &ray);
 	if (ray.hit_anything)
 	{
-		return (vec3_scale(vec3_add(ray.hit.normal, LIGHT_SOURCE), 0.5));
+		color = ray_color(ray_init(ray.hit.P, vec3_random_hemisphere(ray.hit.normal)), world);
+		return (vec3_scale(color, 0.5));
+		// return (vec3_scale(vec3_add(ray.hit.normal, LIGHT_SOURCE), 0.5));
 	}
 	unit_direction = vec3_unit(ray.dir);
 	positive_y = 0.5 * (unit_direction.y + 1.0);

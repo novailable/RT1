@@ -1,18 +1,32 @@
 #include "rt1.h"
 
-// t_vector	sample_offset(int sample, float xy[2])
+// t_vector	get_color(t_camera camera, t_list *world, float x, float y)
 // {
-// 	int	sx;
-// 	int	sy;
+// 	// t_vector	pixel_center;
+// 	t_vector	ray_direction;
+// 	t_vector	sample_center;
+// 	t_vector	pixel_color;
+// 	t_vector	offset_xy[2];
 
-// 	sx = sample % SAMPLE;
-// 	sy = sample / SAMPLE;
+// 	pixel_color = vec3_init(0, 0, 0);
+// 	for (int sample = 0; sample < SAMPLE; sample++)
+// 	{
+// 		int	sx = sample % SAMPLE;
+// 		int	sy = sample / SAMPLE;
 
-// 	xy[0],
-// 	return (init_vec3())
+// 		x = x + (sx + 0.5f) / SAMPLE;
+// 		y = y + (sy + 0.5f) / SAMPLE;
+
+// 		offset_xy[0] = vec3_scale(camera.pixel_x, x);
+// 		offset_xy[1] = vec3_scale(camera.pixel_y, y);
+// 		sample_center = vec3_add(camera.pixel_00, vec3_add(offset_xy[0], offset_xy[1]));
+// 		ray_direction = vec3_sub(sample_center, camera.center);
+// 		pixel_color = vec3_add(pixel_color, ray_color(ray_init(camera.center, ray_direction), world));
+// 	}
+// 	return (vec3_scale(pixel_color, (float)1 / SAMPLE));
 // }
 
-
+/* random sampling */
 t_vector	get_color(t_camera camera, t_list *world, float x, float y)
 {
 	// t_vector	pixel_center;
@@ -24,15 +38,9 @@ t_vector	get_color(t_camera camera, t_list *world, float x, float y)
 	pixel_color = vec3_init(0, 0, 0);
 	for (int sample = 0; sample < SAMPLE; sample++)
 	{
-		int	sx = sample % SAMPLE;
-		int	sy = sample / SAMPLE;
-
-		x = x + (sx + 0.5f) / SAMPLE;
-		y = y + (sy + 0.5f) / SAMPLE;
-
-		offset_xy[0] = vec3_scale(camera.pixel_x, x);
-		offset_xy[1] = vec3_scale(camera.pixel_y, y);
-		sample_center = vec3_add(camera.pixel_00, vec3_add(offset_xy[0], offset_xy[1]));
+		t_vector	offset = vec3_init(random_float() - 0.5, random_float() - 0.5, 0);
+		sample_center = vec3_add(vec3_scale(camera.pixel_x, x + offset.x), vec3_scale(camera.pixel_y, y + offset.y));
+		sample_center = vec3_add(camera.pixel_00, sample_center);
 		ray_direction = vec3_sub(sample_center, camera.center);
 		pixel_color = vec3_add(pixel_color, ray_color(ray_init(camera.center, ray_direction), world));
 	}
@@ -51,10 +59,6 @@ int		paint(t_rt1 *rt1)
 	{
 		for (int x = 0; x < img.width; x++)
 		{
-
-			// sample_offset = vec3_scale(rt1->camera.pixel_x, x)
-			// color = get_color(rt1, vec3_scale(rt1->camera.pixel_x, x), 
-			// 					vec3_scale(rt1->camera.pixel_y, y));
 			color = get_color(rt1->camera, rt1->world, x, y);
 			img_pixel_put(rt1, x, y, ft_color(color));
 		}
