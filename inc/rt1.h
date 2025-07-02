@@ -11,7 +11,7 @@
 #define WIN_WIDTH    800
 #define WIN_HEIGHT   (int)(WIN_WIDTH / WIN_RATIO)
 #define	LIGHT_SOURCE	((t_vector){1, 1, 1})
-#define	SAMPLE	8
+#define	SAMPLE	1
 // #define vec_init(x) _Generic((x), float:)
 
 typedef	struct	s_vector
@@ -26,7 +26,6 @@ typedef struct	s_range
 	float	min;
 	float	max;
 }	t_range;
-
 
 typedef	struct s_image
 {

@@ -36,12 +36,6 @@ t_vector	get_color(t_camera camera, t_list *world, float x, float y)
 		ray_direction = vec3_sub(sample_center, camera.center);
 		pixel_color = vec3_add(pixel_color, ray_color(ray_init(camera.center, ray_direction), world));
 	}
-	// for (int sample = 0; sample < SAMPLE; sample++)
-	// {
-	// 	float u = ()
-	// }
-
-	
 	return (vec3_scale(pixel_color, (float)1 / SAMPLE));
 }
 
@@ -75,7 +69,7 @@ int	main()
 	t_ray		ray;
 	
 	ft_bzero(&rt1, sizeof(rt1));
-	add_w_item(&rt1.world, (void *)init_sphere(vec3_init(0, 0, -1), 0.7), hit_sphere, free_sphere, print_sphere);
+	add_w_item(&rt1.world, (void *)init_sphere(vec3_init(0, 0, -1), 0.5), hit_sphere, free_sphere, print_sphere);
 	add_w_item(&rt1.world, (void *)init_sphere(vec3_init(0, -100.5, -1), 100), hit_sphere, free_sphere, print_sphere);
 
 	// print_world(rt1.world->data);
