@@ -18,7 +18,7 @@ t_vector	vec3_random_unit()
 	{
 		point = vec3_random_range(1, -1);
 		len_sq = vec3_len_sq(point);
-		if ( len_sq <= 1)
+		if (1e-160 <= len_sq && len_sq <= 1)
 			return (vec3_scale(point , 1 / sqrt(len_sq)));
 	}
 }
